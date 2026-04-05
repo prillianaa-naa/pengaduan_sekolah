@@ -9,6 +9,7 @@ class InputAspirasi extends Model
     protected $primaryKey = 'id_pelaporan';
 
     protected $fillable = [
+<<<<<<< HEAD
         'nis',
         'id_kategori',
         'lokasi',
@@ -17,6 +18,9 @@ class InputAspirasi extends Model
         'judul',        // ini belom ada
         'foto',         // ini juga belom ada
         'prioritas',    // ini juga 
+=======
+        'nis', 'id_kategori', 'lokasi', 'ket', 'id_aspirasi',
+>>>>>>> 722639d6daabffc6f303b1c182c07a331f2f6475
     ];
 
     public function siswa()

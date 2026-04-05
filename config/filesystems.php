@@ -40,12 +40,20 @@ return [
 
         'public' => [
             'driver' => 'local',
+<<<<<<< HEAD
             'root' => public_path('storage'), //rubah ini
+=======
+            'root' => storage_path('app/public'),
+>>>>>>> 722639d6daabffc6f303b1c182c07a331f2f6475
             'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
             'visibility' => 'public',
             'throw' => false,
             'report' => false,
+<<<<<<< HEAD
         ],      
+=======
+        ],
+>>>>>>> 722639d6daabffc6f303b1c182c07a331f2f6475
 
         's3' => [
             'driver' => 's3',

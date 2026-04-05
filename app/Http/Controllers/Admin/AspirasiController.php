@@ -4,12 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Aspirasi;
+<<<<<<< HEAD
 use App\Models\InputAspirasi;
 use App\Models\Kategori;
+=======
+>>>>>>> 722639d6daabffc6f303b1c182c07a331f2f6475
 use Illuminate\Http\Request;
 
 class AspirasiController extends Controller
 {
+<<<<<<< HEAD
     public function index(Request $request)
     {
         $query = InputAspirasi::with(['siswa', 'aspirasi.kategori']);
@@ -86,5 +90,21 @@ class AspirasiController extends Controller
         $inputAspirasi->delete();
 
         return back()->with('success', 'Data berhasil dihapus');
+=======
+    public function updateStatus(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:Menunggu,Proses,Selesai',
+            'feedback' => 'nullable|string|max:255',
+        ]);
+
+        $aspirasi = Aspirasi::findOrFail($id);
+        $aspirasi->update([
+            'status' => $validated['status'],
+            'feedback' => $validated['feedback'] ?? null,
+        ]);
+
+        return back()->with('success', 'Status berhasil diupdate');
+>>>>>>> 722639d6daabffc6f303b1c182c07a331f2f6475
     }
 }

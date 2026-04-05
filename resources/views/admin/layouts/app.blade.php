@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+<<<<<<< HEAD
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Admin Dashboard')</title>
@@ -441,5 +442,34 @@
     </script>
     
     @stack('scripts')
+=======
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - @yield('title')</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-blue-600 text-white p-4">
+        <div class="container mx-auto flex justify-between">
+            <h1 class="text-xl font-bold">Admin Pengaduan Sekolah</h1>
+            <div>
+                <span class="mr-4">{{ auth()->guard('admin')->user()->name }}</span>
+                <form action="{{ route('admin.logout') }}" method="POST" class="inline">
+                    @csrf
+                    <button type="submit" class="bg-red-500 px-3 py-1 rounded">Logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto p-6">
+        @if(session('success'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @yield('content')
+    </div>
+>>>>>>> 722639d6daabffc6f303b1c182c07a331f2f6475
 </body>
 </html>

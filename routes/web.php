@@ -1,5 +1,6 @@
 <?php
 
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AspirasiController;
@@ -63,10 +64,37 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::prefix('siswa')->name('siswa.')->group(function () {
     
     // ✅ Home / Beranda
+=======
+use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\AspirasiController as AdminAspirasiController;
+use App\Http\Controllers\Siswa\AuthController as SiswaAuthController;
+use App\Http\Controllers\Siswa\DashboardController as SiswaDashboardController;
+use App\Http\Controllers\Siswa\AspirasiController as SiswaAspirasiController;
+use Illuminate\Support\Facades\Route;
+
+
+
+// Admin Routes
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('login', [AdminAuthController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [AdminAuthController::class, 'login']);
+    
+    Route::middleware(['admin'])->group(function () {
+        Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+        Route::post('aspirasi/{id}/update-status', [AdminAspirasiController::class, 'updateStatus'])->name('aspirasi.update');
+        Route::post('logout', [AdminAuthController::class, 'logout'])->name('logout');
+    });
+});
+
+// Siswa Routes
+Route::prefix('siswa')->name('siswa.')->group(function () {
+>>>>>>> 722639d6daabffc6f303b1c182c07a331f2f6475
     Route::get('/', function () {
         return view('siswa.home');
     })->name('home');
     
+<<<<<<< HEAD
     // ✅ Auth Public
     Route::get('login', [SiswaAuthController::class, 'showLoginForm'])->name('login');
     Route::post('login', [SiswaAuthController::class, 'login'])->name('login.post');
@@ -95,4 +123,17 @@ Route::prefix('siswa')->name('siswa.')->group(function () {
 // ✅ Home Redirect (di luar group)
 Route::get('/', function () {
     return redirect()->route('siswa.home');
+=======
+    Route::get('login', [SiswaAuthController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [SiswaAuthController::class, 'login']);
+    Route::get('register', [SiswaAuthController::class, 'showRegisterForm'])->name('register');
+    Route::post('register', [SiswaAuthController::class, 'register']);
+    
+    Route::middleware(['siswa'])->group(function () {
+        Route::get('dashboard', [SiswaDashboardController::class, 'index'])->name('dashboard');
+        Route::get('aspirasi/create', [SiswaAspirasiController::class, 'create'])->name('aspirasi.create');
+        Route::post('aspirasi/store', [SiswaAspirasiController::class, 'store'])->name('aspirasi.store');
+        Route::post('logout', [SiswaAuthController::class, 'logout'])->name('logout');
+    });
+>>>>>>> 722639d6daabffc6f303b1c182c07a331f2f6475
 });

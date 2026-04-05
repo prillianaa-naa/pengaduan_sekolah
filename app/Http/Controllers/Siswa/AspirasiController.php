@@ -9,19 +9,30 @@ use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Storage;
+=======
+>>>>>>> 722639d6daabffc6f303b1c182c07a331f2f6475
 
 class AspirasiController extends Controller
 {
     public function create()
     {
+<<<<<<< HEAD
         $kategoris = Kategori::all();
+=======
+        // ✅ Ambil semua kategori dari database
+        $kategoris = Kategori::all();
+        
+        // ✅ Kirim variabel $kategoris ke view
+>>>>>>> 722639d6daabffc6f303b1c182c07a331f2f6475
         return view('siswa.aspirasi.create', compact('kategoris'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
+<<<<<<< HEAD
             'judul' => 'required|string|max:100',
             'id_kategori' => 'required|exists:kategoris,id_kategori',
             'lokasi' => 'required|string|max:100',
@@ -47,12 +58,31 @@ class AspirasiController extends Controller
                 'prioritas' => $validated['prioritas'],
             ]);
 
+=======
+            'id_kategori' => 'required|exists:kategoris,id_kategori',
+            'lokasi' => 'required|string|max:50',
+            'ket' => 'required|string|max:50',
+        ]);
+
+        $siswa = Auth::guard('siswa')->user();
+
+        DB::beginTransaction();
+        try {
+            // Create aspirasi
+            $aspirasi = Aspirasi::create([
+                'id_kategori' => $validated['id_kategori'],
+                'status' => 'Menunggu',
+            ]);
+
+            // Create input aspirasi
+>>>>>>> 722639d6daabffc6f303b1c182c07a331f2f6475
             InputAspirasi::create([
                 'nis' => $siswa->nis,
                 'id_kategori' => $validated['id_kategori'],
                 'lokasi' => $validated['lokasi'],
                 'ket' => $validated['ket'],
                 'id_aspirasi' => $aspirasi->id_aspirasi,
+<<<<<<< HEAD
                 'judul' => $validated['judul'],
                 'foto' => $fotoPath,
                 'prioritas' => $validated['prioritas'],
@@ -191,4 +221,16 @@ class AspirasiController extends Controller
 
         return redirect()->route('siswa.dashboard')->with('success', 'Pengaduan berhasil dihapus!');
     }
+=======
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('siswa.dashboard')->with('success', 'Aspirasi berhasil diajukan');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
+>>>>>>> 722639d6daabffc6f303b1c182c07a331f2f6475
 }

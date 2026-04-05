@@ -17,6 +17,7 @@ class DashboardController extends Controller
         $proses = Aspirasi::where('status', 'Proses')->count();
         $selesai = Aspirasi::where('status', 'Selesai')->count();
 
+<<<<<<< HEAD
         $aspirasis = InputAspirasi::with(['siswa', 'aspirasi'])
             ->whereHas('aspirasi', function($q) {
                 $q->where('is_read', 0); // ✅ Filter hanya yang belum dibaca
@@ -24,6 +25,11 @@ class DashboardController extends Controller
             ->latest()
             ->take(5)
             ->get();
+=======
+        $aspirasis = InputAspirasi::with(['siswa', 'aspirasi.kategori'])
+            ->latest()
+            ->paginate(10);
+>>>>>>> 722639d6daabffc6f303b1c182c07a331f2f6475
 
         return view('admin.dashboard', compact(
             'totalSiswa',

@@ -16,4 +16,8 @@ class AdminMiddleware
         
         return $next($request);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 722639d6daabffc6f303b1c182c07a331f2f6475
